@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dzl.sport.mapper.BbsIdMapper" >
+  <resultMap id="BaseResultMap" type="com.dzl.sport.pojo.BbsId" >
+    <id column="temp_bid" property="tempBid" jdbcType="BIGINT" />
+  </resultMap>
+  <select id="selectId" resultType="java.lang.Long">
+     select temp_bid from bbs_id;
+  </select>
+  <update id="updateId" parameterType="java.lang.Long">
+    update bbs_id set temp_bid = #{tempBid,jdbcType=BIGINT}
+
+  </update>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from bbs_id
+    where temp_bid = #{tempBid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.dzl.sport.pojo.BbsId" >
+    insert into bbs_id (temp_bid)
+    values (#{tempBid,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dzl.sport.pojo.BbsId" >
+    insert into bbs_id
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tempBid != null" >
+        temp_bid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tempBid != null" >
+        #{tempBid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="commoms" />
+        <module name="console" />
+        <module name="dao" />
+        <module name="interface" />
+        <module name="pojo" />
+        <module name="productservice" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="commoms" target="1.6" />
+      <module name="console" target="1.8" />
+      <module name="dao" target="1.5" />
+      <module name="interface" target="1.5" />
+      <module name="pojo" target="1.5" />
+      <module name="productservice" target="1.8" />
+      <module name="sportproject" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
