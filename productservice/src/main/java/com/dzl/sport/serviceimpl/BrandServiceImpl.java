@@ -38,7 +38,7 @@ public class BrandServiceImpl implements BrandService{
          if(isDisplay!=null){
              if(isDisplay==1){
                  bbsBrand.setIsDisplay(true);
-             }else{
+             }else if(isDisplay==0){
                  bbsBrand.setIsDisplay(false);
              }
          }
@@ -71,12 +71,17 @@ public class BrandServiceImpl implements BrandService{
     public void addBrand(BbsBrand bbsBrand,String[] imgUrls) {
            ProductUtil<String> productUtil = new ProductUtil<>();
            String imgUrl = productUtil.getSplitObject(imgUrls);
-           Long ids = bbsIdMapper.selectId();
-           bbsBrand.setId(ids);
-           bbsBrand.setId(ids);
            bbsBrand.setImgUrl(imgUrl);
-           bbsIdMapper.updateId(ids+1);
-           bbsBrandMapper.insertSelective(bbsBrand);
+
+
+           synchronized (bbsIdMapper){
+               Long ids = bbsIdMapper.selectAll().getTempBid();
+               bbsBrand.setId(ids);
+               bbsBrandMapper.insertSelective(bbsBrand);
+               bbsIdMapper.updateBid();
+           }
+
+
     }
 
 

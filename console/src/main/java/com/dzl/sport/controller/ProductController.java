@@ -1,7 +1,9 @@
 package com.dzl.sport.controller;
 
         import com.dzl.sport.brand.BrandService;
+        import com.dzl.sport.color.ColorService;
         import com.dzl.sport.pojo.BbsBrand;
+        import com.dzl.sport.pojo.BbsColor;
         import com.dzl.sport.pojo.BbsProduct;
         import com.dzl.sport.pojo.BbsProductWithBLOBs;
         import com.dzl.sport.product.ProductService;
@@ -11,7 +13,6 @@ package com.dzl.sport.controller;
         import org.springframework.web.bind.annotation.RequestMapping;
         import org.springframework.web.bind.annotation.RequestParam;
         import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
         import javax.annotation.Resource;
         import java.util.List;
 
@@ -25,6 +26,17 @@ public class ProductController {
     private ProductService productService;
     @Resource
     private BrandService brandService;
+    @Resource
+    private ColorService colorService;
+    @RequestMapping("addProduct")
+    public String addProduct(String names, Integer page, Integer isShows , Long brandIds,  BbsProductWithBLOBs bbsProductWithBLOBs ,Model model){
+        productService.addProduct(bbsProductWithBLOBs);
+        model.addAttribute("name",names);
+        model.addAttribute("page",page);
+        model.addAttribute("isShows",isShows);
+        model.addAttribute("brandIds",brandIds);
+        return "product/add";
+    }
     @RequestMapping("updateProducts1")
     public String updateProducts1(String name, Integer page, Integer isShow, Long brandId, Long[] ids, RedirectAttributes redirectAttributes){
        //处理上架
@@ -46,32 +58,52 @@ public class ProductController {
         return  "redirect:productList";
     }
     @RequestMapping("productUpdate")
-    public String productUpdate(String name,Integer page,Integer isShow,Long brandId,BbsProductWithBLOBs bbsProductWithBLOBs,String[] imgUrlsl,String[] colorss,String[] sizess,Model model){
+    public String productUpdate(String names,Integer page,Integer isShows,Long brandIds,BbsProductWithBLOBs bbsProductWithBLOBs,String[] imgUrlsl,String[] colorss,String[] sizess,Model model){
         productService.updateProduct(bbsProductWithBLOBs,imgUrlsl,colorss,sizess);
-        model.addAttribute("name",name);
+        model.addAttribute("name",names);
         model.addAttribute("page",page);
-        model.addAttribute("isShow",isShow);
-        model.addAttribute("brandId",brandId);
-        return null;
+        model.addAttribute("isShow",isShows);
+        model.addAttribute("brandId",brandIds);
+        return "product/update";
     }
-    @RequestMapping("toUpdateProduct")
-    public String toUpdateProduct(Long id,Integer page,String name,Integer isShow,Long brandId,Model model){
-        BbsProductWithBLOBs bbsProduct = productService.selectById(id);
+    @RequestMapping("productView")
+    public String productView(Long pid,Integer page,String name,Integer isShow,Long brandId,Model model){
+        BbsProductWithBLOBs bbsProduct = productService.selectById(pid);
+        List<BbsColor> colorList = colorService.getColors();
         List<BbsBrand> blist = brandService.selectAll();
         model.addAttribute("page",page);
         model.addAttribute("name",name);
         model.addAttribute("isShow",isShow);
         model.addAttribute("brandId",brandId);
         model.addAttribute("bbsProduct",bbsProduct);
+        model.addAttribute("colorList",colorList);
+        model.addAttribute("blist",blist);
+        return  "product/view";
+    }
+    @RequestMapping("toUpdateProduct")
+    public String toUpdateProduct(Long id,Integer page,String name,Integer isShow,Long brandId,Model model){
+        BbsProductWithBLOBs bbsProduct = productService.selectById(id);
+        List<BbsColor> colorList = colorService.getColors();
+        List<BbsBrand> blist = brandService.selectAll();
+        model.addAttribute("page",page);
+        model.addAttribute("name",name);
+        model.addAttribute("isShow",isShow);
+        model.addAttribute("brandId",brandId);
+        model.addAttribute("bbsProduct",bbsProduct);
+        model.addAttribute("colorList",colorList);
         model.addAttribute("blist",blist);
         return  "product/update";
     }
     @RequestMapping("toProductAdd")
     public String toProductAdd(String name, Integer page, Integer isShow ,Long brandId,Model model){
+        List<BbsColor> colorList = colorService.getColors();
+        List<BbsBrand> brandList = brandService.selectAll();
         model.addAttribute("name",name);
         model.addAttribute("page",page);
         model.addAttribute("isShow",isShow);
         model.addAttribute("brandId",brandId);
+        model.addAttribute("colorList",colorList);
+        model.addAttribute("brandList",brandList);
         return "product/add";
     }
     @RequestMapping("productList")

@@ -13,4 +13,7 @@ public interface ProductService {
     void updateProducts1(Long[] ids);
     //处理下架
     void updateProducts0(Long[] ids);
+    //增加商品
+    void addProduct(BbsProductWithBLOBs bbsProductWithBLOBs);
+
 }

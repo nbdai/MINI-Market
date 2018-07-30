@@ -47,13 +47,13 @@
                         // 编辑器参数
                         var kingEditorParams = {
                             //指定上传文件参数名称
-                            filePostName  : "uploadFile",
+                            filePostName  : "pics",
                             //指定上传文件请求的url。
-                            uploadJson : 'uploadFck.do',
+                            uploadJson : "/KindImgLoad",
                             //上传类型，分别为image、flash、media、file
-                            dir : "image"//,
-// 					width : '1000px',
-// 					height : '400px'
+                               dir : "image",
+					         // width : "1000px",
+				             // height : "400px"
                         };
                         KindEditor.create('#productdesc',kingEditorParams);
                         KindEditor.sync();
@@ -65,7 +65,7 @@
         function uploadPic(){
             //上传图片 异步的  	Jquery.form.js
             var options = {
-                url : "/ImgLoad",
+                url : "/ImgLoads",
                 type : "post",
                 dataType : "json",
                 success : function(data){
@@ -75,7 +75,7 @@
                         + '<td width="80%" class="pn-fcontent">';
                     for(var i=0;i<data.length;i++){
                         html += '<img width="40" height="40" src="' + data[i] + '" />'
-                            +  '<input type="hidden" name="imgUrls" value="' + data[i] + '"/>'
+                            +  '<input type="hidden" name="imgUrlsl" value="' + data[i] + '"/>'
                     }
                     html += '<a href="javascript:;" class="pn-opt" onclick="jQuery(this).parents(\'tr\').remove()">删除</a>'
                         +  '</td>'
@@ -105,7 +105,7 @@
 <a href="javascript:void(0);" ref="#tab_4" title="包装清单" class="nor">包装清单</a>
 </span></h2>
 <div class="body-box" style="float:right">
-	<form id="jvForm" action="productUpdate?name=${name}&page=${page}&isShow=${isShow}&brandId=${brandId}" method="post" enctype="multipart/form-data">
+	<form id="jvForm" action="productUpdate?names=${name}&page=${page}&isShows=${isShow}&brandIds=${brandId}" method="post" enctype="multipart/form-data">
 		<table cellspacing="1" cellpadding="2" width="100%" border="0" class="pn-ftable">
 			<tbody id="tab_1">
 				<tr>
@@ -151,27 +151,15 @@
 					<td width="20%" class="pn-flabel pn-flabel-h">
 						<span class="pn-frequired">*</span>
 						颜色:</td><td width="80%" class="pn-fcontent">
-
-
-						      <input type="checkbox" value="9" name="colorss" <c:forEach items="${bbsProduct.colorss }" var="color"><c:if test="${color==9}">checked="checked"</c:if> </c:forEach>/>西瓜红
-						      <input type="checkbox" value="1" name="colorss" <c:forEach items="${bbsProduct.colorss }" var="color"><c:if test="${color==1}">checked="checked"</c:if> </c:forEach>/>红色系
-
-                             <input type="checkbox" value="2" name="colorss" <c:forEach items="${bbsProduct.colorss }" var="color"><c:if test="${color==2}">checked="checked"</c:if> </c:forEach>/>绿色系
-
-                             <input type="checkbox" value="3" name="colorss" <c:forEach items="${bbsProduct.colorss }" var="color"><c:if test="${color==3}">checked="checked"</c:if> </c:forEach>/>蓝色系
-
-                             <input type="checkbox" value="4" name="colorss" <c:forEach items="${bbsProduct.colorss }" var="color"><c:if test="${color==4}">checked="checked"</c:if> </c:forEach>/>黑色系
-
-                             <input type="checkbox" value="22" name="colorss" <c:forEach items="${bbsProduct.colorss }" var="color"><c:if test="${color==22}">checked="checked"</c:if> </c:forEach>/>宝石蓝绿
-						     <input type="checkbox" value="26" name="colorss" <c:forEach items="${bbsProduct.colorss }" var="color"><c:if test="${color==26}">checked="checked"</c:if> </c:forEach>/>花色系
-
+					<c:forEach items="${colorList}" var="col">
+						<input type="checkbox" value="${col.id}" name="colorss" <c:forEach items="${bbsProduct.colorss}" var="color"><c:if test="${col.id==color}">checked="checked"</c:if></c:forEach>/>${col.name}
+					</c:forEach>
 					</td>
 				</tr>
 				<tr>
 					<td width="20%" class="pn-flabel pn-flabel-h">
 						<span class="pn-frequired">*</span>
 						尺码:</td><td width="80%" class="pn-fcontent">
-
                                      <input type="checkbox" value="S" name="sizess" <c:forEach items="${bbsProduct.sizess }" var="size"><c:if test="${size=='S'}">checked="checked"</c:if></c:forEach>/>S
                                     <input type="checkbox" value="M" name="sizess" <c:forEach items="${bbsProduct.sizess }" var="size"><c:if test="${size=='M'}">checked="checked"</c:if></c:forEach>/>M
                                     <input type="checkbox" value="L" name="sizess" <c:forEach items="${bbsProduct.sizess }" var="size"><c:if test="${size=='L'}">checked="checked"</c:if></c:forEach>/>L
@@ -223,14 +211,14 @@
 			<tbody id="tab_3" style="display: none">
 				<tr>
 					<td >
-						<textarea rows="20" cols="180" id="productdesc" name="description"></textarea>
+						<textarea rows="20" cols="180" id="productdesc" name="description">${bbsProduct.description}</textarea>
 					</td>
 				</tr>
 			</tbody>
 			<tbody id="tab_4" style="display: none">
 				<tr>
 					<td >
-						<textarea rows="20" cols="180" id="productList" name="packageList" value="${bbsProduct.packageList }"></textarea>
+						<textarea rows="20" cols="180" id="productList" name="packageList">${bbsProduct.packageList }</textarea>
 					</td>
 				</tr>
 			</tbody>

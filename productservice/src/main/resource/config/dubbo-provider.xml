@@ -33,6 +33,8 @@
 	<dubbo:service interface="com.dzl.sport.brand.BrandService" ref="brandService"/>
 
 	<dubbo:service interface="com.dzl.sport.product.ProductService" ref="productService"/>
+	<dubbo:service interface="com.dzl.sport.sku.SkuService" ref="skuService"/>
+	<dubbo:service interface="com.dzl.sport.color.ColorService" ref="colorService"/>
 	
 	
 	

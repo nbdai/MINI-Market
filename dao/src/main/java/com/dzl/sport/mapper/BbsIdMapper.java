@@ -4,9 +4,18 @@ import com.dzl.sport.pojo.BbsId;
 
 public interface BbsIdMapper {
     int deleteByPrimaryKey(Long tempBid);
-    Long selectId();
-    void updateId(Long id);
+
     int insert(BbsId record);
 
+
+     BbsId selectAll();
+     void updatePid();
+     void updateBid();
     int insertSelective(BbsId record);
+
+    BbsId selectByPrimaryKey(Long tempBid);
+
+    int updateByPrimaryKeySelective(BbsId record);
+
+    int updateByPrimaryKey(BbsId record);
 }

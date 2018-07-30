@@ -27,7 +27,6 @@ public class BbsProduct implements Serializable{
     private String[] sizess;
 
     private String sizes;
-
     private Date createTime;
 
     public String[] getColorss() {

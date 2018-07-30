@@ -46,9 +46,9 @@ $(function(){
 				// 编辑器参数
 		 		var kingEditorParams = {
 					//指定上传文件参数名称
-					filePostName  : "uploadFile",
+					filePostName  : "pics",
 					//指定上传文件请求的url。
-					uploadJson : 'uploadFck.do',
+					uploadJson : 'ImgLoads',
 					//上传类型，分别为image、flash、media、file
 					dir : "image"//,
 // 					width : '1000px',
@@ -64,27 +64,28 @@ $(function(){
 function uploadPic(){
 	//上传图片 异步的  	Jquery.form.js
 	var options = {
-			url : "/ImgLoad",
+			url : "/ImgLoads",
 			type : "post",
 			dataType : "json",
-			success : function(data){
-				//多图片回显
-				var html = '<tr>'
-						 + '<td width="20%" class="pn-flabel pn-flabel-h"></td>'
-						 + '<td width="80%" class="pn-fcontent">';
-				for(var i=0;i<data.length;i++){
-					html += '<img width="100" height="100" src="' + data[i] + '" />'
-					     +  '<input type="hidden" name="imgUrls" value="' + data[i] + '"/>'
-				}
-				html += '<a href="javascript:;" class="pn-opt" onclick="jQuery(this).parents(\'tr\').remove()">删除</a>'
-					 +  '</td>'
-					 +  '</tr>';
-				//回显
-				$("#tab_2").append(html);
-				
-			}
-	}
-	$("#jvForm").ajaxSubmit(options);
+        success : function(data){
+            //多图片回显
+            var html = '<tr>'
+                + '<td width="20%" class="pn-flabel pn-flabel-h"></td>'
+                + '<td width="80%" class="pn-fcontent">';
+            for(var i=0;i<data.length;i++){
+                html += '<img width="40" height="40" src="' + data[i] + '" />'
+                    +  '<input type="hidden" name="imgUrls" value="' + data[i] + '"/>'
+            }
+            html += '<a href="javascript:;" class="pn-opt" onclick="jQuery(this).parents(\'tr\').remove()">删除</a>'
+                +  '</td>'
+                +  '</tr>';
+            //回显
+            $("#tab_2").append(html);
+
+        }
+    }
+    $("#jvForm").ajaxSubmit(options);
+
 }
 </script>
 </head>
@@ -103,7 +104,7 @@ function uploadPic(){
 <a href="javascript:void(0);" ref="#tab_4" title="包装清单" class="nor">包装清单</a>
 </span></h2>
 <div class="body-box" style="float:right">
-	<form id="jvForm" action="productAdd?names=${name}&page=${page}&isShow=${isShow}&brandId=${brandId}" method="post" enctype="multipart/form-data">
+	<form id="jvForm" action="addProduct?names=${name}&page=${page}&isShows=${isShow}&brandIds=${brandId}" method="post" enctype="multipart/form-data">
 		<table cellspacing="1" cellpadding="2" width="100%" border="0" class="pn-ftable">
 			<tbody id="tab_1">
 				<tr>
@@ -133,7 +134,7 @@ function uploadPic(){
 						商品品牌:</td><td width="80%" class="pn-fcontent">
 						<select name="brandId">
 							<option value="">请选择品牌</option>
-							<c:forEach items="${brands }" var="brand">
+							<c:forEach items="${brandList}" var="brand">
 							     <option value="${brand.id }">${brand.name }</option>
 							</c:forEach>							
 						</select>
@@ -149,13 +150,9 @@ function uploadPic(){
 					<td width="20%" class="pn-flabel pn-flabel-h">
 						<span class="pn-frequired">*</span>
 						颜色:</td><td width="80%" class="pn-fcontent">
-							<input type="checkbox" value="9" name="colorss"/>西瓜红
-							<input type="checkbox" value="9" name="colorss"/>西瓜红
-							<input type="checkbox" value="9" name="colorss"/>西瓜红
-							<input type="checkbox" value="9" name="colorss"/>西瓜红
-							<input type="checkbox" value="9" name="colorss"/>西瓜红
-							<input type="checkbox" value="9" name="colorss"/>西瓜红
-							<input type="checkbox" value="9" name="colorss"/>西瓜红
+					    <c:forEach items="${colorList}" var="color">
+							<input type="checkbox" value="${color.id}" name="colorss"/>${color.name}
+						</c:forEach>
 					</td>
 				</tr>
 				<tr>
@@ -176,6 +173,7 @@ function uploadPic(){
 						<input type="checkbox" name="isCommend" value="1"/>推荐
 						<input type="checkbox" name="isHot" value="1"/>热卖
 					</td>
+
 				</tr>
 			</tbody>
 			<tbody id="tab_2" style="display: none">

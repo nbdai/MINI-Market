@@ -5,6 +5,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class CenterController {
+    @RequestMapping("orderlist")
+    public String orderlist(){
+        return  "order/list";
+    }
+    @RequestMapping("orderleft")
+    public  String orderleft(){
+        return "frame/order_left";
+    }
+    @RequestMapping("order_main")
+    public String orderMain(){ return "frame/order_main"; }
     @RequestMapping("index")
     public String index(){
         return "index";

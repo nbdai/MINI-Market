@@ -51,9 +51,9 @@
     }
 //去修改页面
     function toUpdatePage(id,page,name,isShow,brandId){
-	    
+
 	     window.location.href="toUpdateProduct?id="+id+"&page="+page+"&name="+name+"&isShow="+isShow+"&brandId="+brandId;
-	
+
     }
     //批量删除
     function optDelete(){
@@ -127,7 +127,7 @@
 			<td align="center"><c:if test="${product.isCommend==true}">是</c:if><c:if test="${product.isCommend==false }">否</c:if></td>
 			<td align="center"><c:if test="${product.isShow==true }">上架</c:if><c:if test="${product.isShow==false }">下架</c:if></td>
 			<td align="center">
-			<a href="#" class="pn-opt">查看</a> | <a href="javascript:;" class="pn-opt" onclick="toUpdatePage('${product.id }','${page}','${name}','${isShow}','${brandId}')">修改</a> | <a  onclick="if(!confirm('您确定删除吗？')){return false;}" href="deleteProducts?ids=${product.id}&page=${page}&name=${name}&isShow=${isShow}&brandId=${brandId}" class="pn-opt">删除</a> | <a href="javascript:;" onclick="window.location.href='skuList.do'" class="pn-opt">库存</a>
+			<a href="productView?pid=${product.id}&page=${page}&name=${name}&isShow=${isShow}&brandId=${brandId}" class="pn-opt">查看</a> | <a href="javascript:;" class="pn-opt" onclick="toUpdatePage('${product.id }','${page}','${name}','${isShow}','${brandId}')">修改</a> | <a  onclick="if(!confirm('您确定删除吗？')){return false;}" href="deleteProducts?ids=${product.id}&page=${page}&name=${name}&isShow=${isShow}&brandId=${brandId}" class="pn-opt">删除</a> | <a href="javascript:;" onclick="window.location.href='skuList?pid=${product.id}&name=${name}&page=${page}&isShow=${isShow}&brandId=${brandId}'" class="pn-opt">库存</a>
 			</td>
 		</tr>
 		</c:forEach>

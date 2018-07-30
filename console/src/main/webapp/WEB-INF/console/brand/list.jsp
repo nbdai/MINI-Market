@@ -49,7 +49,7 @@
 <div class="body-box">
 <form action="brandList" method="post" style="padding-top:5px;">
 	品牌名称: <input type="text" name="name" <c:if test="${name!=null}">value="${name}"</c:if> />
-	<select name="isDisplay">
+	是否有效：<select name="isDisplay">
 		<c:if test="${isDisplay==1}">
 			<option value="1" selected="selected">是</option>
 			<option value="0">否</option>

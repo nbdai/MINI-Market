@@ -1,11 +1,11 @@
 package com.dzl.sport.pojo;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
+
 
 public class BbsSku implements Serializable{
     private Long id;
-
     private Long productId;
 
     private Long colorId;

@@ -3,21 +3,47 @@
 <mapper namespace="com.dzl.sport.mapper.BbsIdMapper" >
   <resultMap id="BaseResultMap" type="com.dzl.sport.pojo.BbsId" >
     <id column="temp_bid" property="tempBid" jdbcType="BIGINT" />
+    <result column="temp_pid" property="tempPid" jdbcType="BIGINT" />
   </resultMap>
-  <select id="selectId" resultType="java.lang.Long">
-     select temp_bid from bbs_id;
-  </select>
-  <update id="updateId" parameterType="java.lang.Long">
-    update bbs_id set temp_bid = #{tempBid,jdbcType=BIGINT}
+  <sql id="Base_Column_List" >
+    temp_bid, temp_pid
+  </sql>
+  <update id="updatePid">
+
+    update bbs_id
+    <set >
+      temp_pid = temp_pid+1
+    </set>
 
   </update>
+  <update id="updateBid">
+
+    update bbs_id
+    <set >
+       temp_bid = temp_bid+1
+    </set>
+
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap"  >
+
+    select
+    <include refid="Base_Column_List" />
+    from bbs_id
+
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from bbs_id
+    where temp_bid = #{tempBid,jdbcType=BIGINT}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from bbs_id
     where temp_bid = #{tempBid,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.dzl.sport.pojo.BbsId" >
-    insert into bbs_id (temp_bid)
-    values (#{tempBid,jdbcType=BIGINT})
+    insert into bbs_id (temp_bid, temp_pid)
+    values (#{tempBid,jdbcType=BIGINT}, #{tempPid,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.dzl.sport.pojo.BbsId" >
     insert into bbs_id
@@ -25,11 +51,31 @@
       <if test="tempBid != null" >
         temp_bid,
       </if>
+      <if test="tempPid != null" >
+        temp_pid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="tempBid != null" >
         #{tempBid,jdbcType=BIGINT},
       </if>
+      <if test="tempPid != null" >
+        #{tempPid,jdbcType=BIGINT},
+      </if>
     </trim>
   </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dzl.sport.pojo.BbsId" >
+    update bbs_id
+    <set >
+      <if test="tempPid != null" >
+        temp_pid = #{tempPid,jdbcType=BIGINT},
+      </if>
+    </set>
+    where temp_bid = #{tempBid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dzl.sport.pojo.BbsId" >
+    update bbs_id
+    set temp_pid = #{tempPid,jdbcType=BIGINT}
+    where temp_bid = #{tempBid,jdbcType=BIGINT}
+  </update>
 </mapper>

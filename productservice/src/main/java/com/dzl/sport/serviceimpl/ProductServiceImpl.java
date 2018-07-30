@@ -1,5 +1,6 @@
 package com.dzl.sport.serviceimpl;
 
+import com.dzl.sport.mapper.BbsIdMapper;
 import com.dzl.sport.mapper.BbsProductMapper;
 import com.dzl.sport.pojo.BbsProduct;
 import com.dzl.sport.pojo.BbsProductWithBLOBs;
@@ -7,8 +8,12 @@ import com.dzl.sport.product.ProductService;
 import com.dzl.sport.util.ProductUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.sun.jmx.snmp.Timestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +21,8 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService{
     @Autowired
     private BbsProductMapper bbsProductMapper;
-
+    @Autowired
+    private BbsIdMapper bbsIdMapper;
 
     @Override
     public PageInfo<BbsProduct> selectProducts(String name, Integer page, Integer isShow,Long brandId) {
@@ -27,7 +33,7 @@ public class ProductServiceImpl implements ProductService{
         if(isShow!=null){
             if (isShow==1){
                 bbsProduct.setIsShow(true);
-            }else{
+            }else if(isShow==0){
                 bbsProduct.setIsShow(false);
             }
         }
@@ -127,5 +133,30 @@ public class ProductServiceImpl implements ProductService{
             longList.add(id);
         }
         bbsProductMapper.updateProduct0(longList);
+    }
+
+    @Override
+    public void addProduct(BbsProductWithBLOBs bbsProductWithBLOBs) {
+
+         ProductUtil<String> productUtil = new ProductUtil();
+         String imgUrl =  productUtil.getSplitObject(bbsProductWithBLOBs.getImgUrls());
+         String color = productUtil.getSplitObject(bbsProductWithBLOBs.getColorss());
+         String  size = productUtil.getSplitObject(bbsProductWithBLOBs.getSizess());
+         bbsProductWithBLOBs.setImgUrl(imgUrl);
+         bbsProductWithBLOBs.setColors(color);
+         bbsProductWithBLOBs.setSizes(size);
+         bbsProductWithBLOBs.setIsDel(true);
+         bbsProductWithBLOBs.setIsShow(false);
+         String nowTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
+         bbsProductWithBLOBs.setCreateTime(java.sql.Timestamp.valueOf(nowTime));
+         //全局Id
+        synchronized (bbsIdMapper){
+            Long pid = bbsIdMapper.selectAll().getTempPid();
+            bbsProductWithBLOBs.setId(pid);
+            bbsProductMapper.insertSelective(bbsProductWithBLOBs);
+            bbsIdMapper.updatePid();
+        }
+
+
     }
 }

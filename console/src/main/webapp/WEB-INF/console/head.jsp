@@ -4,8 +4,9 @@
 <link href="/css/jquery.treeview.css" rel="stylesheet" type="text/css"/>
 <link href="/css/jquery.ui.css" rel="stylesheet" type="text/css"/>
 
-<script type="text/javascript" src="/js/kindeditor-4.1.10/kindeditor-all-min.js"></script>
-<script type="text/javascript" src="/js/kindeditor-4.1.10/lang/zh_CN.js"></script>
+<script type="text/javascript"  charset="utf-8" src="/js/kindeditor-4.1.10/kindeditor-all-min.js"></script>
+<script type="text/javascript"  charset="utf-8" src="/js/kindeditor-4.1.10/lang/zh_CN.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/plugins/code/prettify.js"></script>
 <script src="/js/jquery.js" type="text/javascript"></script>
 <script src="/js/jquery.ext.js" type="text/javascript"></script>
 <script src="/js/jquery.form.js" type="text/javascript"></script>
