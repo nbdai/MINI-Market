@@ -22,10 +22,5 @@
            <artifactId>pagehelper</artifactId>
            <version>4.0.3</version>
        </dependency>
-       <dependency>
-           <groupId>com.github.miemiedev</groupId>
-           <artifactId>mybatis-paginator</artifactId>
-           <version>1.2.5</version>
-       </dependency>
    </dependencies>
 </project>

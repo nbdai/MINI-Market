@@ -5,7 +5,8 @@ import java.io.Serializable;
 public class BbsProductWithBLOBs extends BbsProduct implements Serializable{
     private String imgUrl;
 
-   public String[] imgUrls;
+    private String[] imgUrls;
+    private Float price;
 
     private String description;
 
@@ -13,6 +14,14 @@ public class BbsProductWithBLOBs extends BbsProduct implements Serializable{
 
     public String[] getImgUrls() {
         return imgUrls;
+    }
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
     }
 
     public  void setImgUrls(String[] imgUrls) {

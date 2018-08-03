@@ -1,5 +1,6 @@
 package com.dzl.sport.serviceimpl;
 
+
 import com.dzl.sport.brand.BrandService;
 import com.dzl.sport.mapper.BbsBrandMapper;
 import com.dzl.sport.mapper.BbsIdMapper;
@@ -15,6 +16,10 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author DZL
+ * @desc 品牌后台业务逻辑处理类.
+ */
 @Service("brandService")
 public class BrandServiceImpl implements BrandService{
     @Autowired
@@ -69,19 +74,17 @@ public class BrandServiceImpl implements BrandService{
 
     @Override
     public void addBrand(BbsBrand bbsBrand,String[] imgUrls) {
+          //增加品牌.
            ProductUtil<String> productUtil = new ProductUtil<>();
            String imgUrl = productUtil.getSplitObject(imgUrls);
            bbsBrand.setImgUrl(imgUrl);
-
-
            synchronized (bbsIdMapper){
                Long ids = bbsIdMapper.selectAll().getTempBid();
                bbsBrand.setId(ids);
                bbsBrandMapper.insertSelective(bbsBrand);
                bbsIdMapper.updateBid();
            }
-
-
+           //增加品牌是否应该加入solr中。
     }
 
 

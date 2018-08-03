@@ -28,6 +28,7 @@
   <sql id="Blob_Column_List" >
     img_url, description, package_list
   </sql>
+
   <update id="deleteProducts" parameterType="java.lang.Long" >
     update bbs_product
     <set >

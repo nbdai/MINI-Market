@@ -11,7 +11,9 @@
         <module name="dao" />
         <module name="interface" />
         <module name="pojo" />
+        <module name="portal" />
         <module name="productservice" />
+        <module name="solrservice" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -20,7 +22,10 @@
       <module name="dao" target="1.5" />
       <module name="interface" target="1.5" />
       <module name="pojo" target="1.5" />
+      <module name="portal" target="1.7" />
       <module name="productservice" target="1.8" />
+      <module name="solr-service" target="1.7" />
+      <module name="solrservice" target="1.7" />
       <module name="sportproject" target="1.5" />
     </bytecodeTargetLevel>
   </component>

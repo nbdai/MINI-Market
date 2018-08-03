@@ -1,0 +1,21 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://code.alibabatech.com/schema/dubbo
+		http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<dubbo:application name="portal"/>
+	<dubbo:registry address="N/A" check="false"/>
+	<dubbo:reference interface="com.dzl.sport.solr.ProductSolrService" id="productSolrService"
+					 url="dubbo://127.0.0.1:20888"/>
+	<dubbo:reference interface="com.dzl.sport.brand.BrandService" id="brandService"
+					 url="dubbo://127.0.0.1:20881"/>
+	<!-- 全局设置 -->
+	<dubbo:consumer timeout="600000" check="false"/>
+</beans>
+
+
+
+

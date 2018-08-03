@@ -15,6 +15,8 @@
         <module>interface</module>
         <module>productservice</module>
         <module>console</module>
+        <module>portal</module>
+        <module>solrservice</module>
     </modules>
     <properties>
         <java-version>1.8</java-version>
@@ -113,7 +115,7 @@
         <dependency>
           <groupId>org.freemarker</groupId>
           <artifactId>freemarker</artifactId>
-          <version>2.3.18</version>
+          <version>2.3.16</version>
         </dependency>
         <!-- with mybatis-spring -->
         <dependency>
@@ -220,7 +222,11 @@
             <artifactId>json</artifactId>
             <version>20131018</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.solr</groupId>
+            <artifactId>solr-solrj</artifactId>
+            <version>4.10.3</version>
+        </dependency>
         <!--page -->
         <!--<dependency>-->
         <!--<groupId>com.babasport</groupId>-->

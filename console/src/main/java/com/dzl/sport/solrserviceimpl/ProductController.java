@@ -1,10 +1,9 @@
-package com.dzl.sport.controller;
+package com.dzl.sport.solrserviceimpl;
 
         import com.dzl.sport.brand.BrandService;
         import com.dzl.sport.color.ColorService;
         import com.dzl.sport.pojo.BbsBrand;
         import com.dzl.sport.pojo.BbsColor;
-        import com.dzl.sport.pojo.BbsProduct;
         import com.dzl.sport.pojo.BbsProductWithBLOBs;
         import com.dzl.sport.product.ProductService;
         import com.github.pagehelper.PageInfo;

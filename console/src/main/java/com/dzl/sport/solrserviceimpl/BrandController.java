@@ -1,4 +1,4 @@
-package com.dzl.sport.controller;
+package com.dzl.sport.solrserviceimpl;
 
 import com.dzl.sport.brand.BrandService;
 
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
 
 @Controller
 @SessionAttributes("flag")

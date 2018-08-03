@@ -1,4 +1,4 @@
-package com.dzl.sport.controller;
+package com.dzl.sport.solrserviceimpl;
 
 import com.dzl.sport.color.ColorService;
 import com.dzl.sport.pojo.BbsColor;

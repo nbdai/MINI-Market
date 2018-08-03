@@ -10,7 +10,7 @@ public interface BbsSkuMapper {
     int insert(BbsSku record);
 
     int insertSelective(BbsSku record);
-
+    Float selectMinPrice(Long productId);
     BbsSku selectByPrimaryKey(Long id);
 
     int updateByPrimaryKeySelective(BbsSku record);

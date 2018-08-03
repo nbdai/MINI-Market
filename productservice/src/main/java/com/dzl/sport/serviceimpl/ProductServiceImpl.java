@@ -1,21 +1,29 @@
 package com.dzl.sport.serviceimpl;
 
+import com.dzl.sport.mapper.BbsColorMapper;
 import com.dzl.sport.mapper.BbsIdMapper;
 import com.dzl.sport.mapper.BbsProductMapper;
+import com.dzl.sport.mapper.BbsSkuMapper;
+import com.dzl.sport.pojo.BbsColor;
 import com.dzl.sport.pojo.BbsProduct;
 import com.dzl.sport.pojo.BbsProductWithBLOBs;
+import com.dzl.sport.pojo.BbsSku;
 import com.dzl.sport.product.ProductService;
 import com.dzl.sport.util.ProductUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.oracle.sport.staticpage.StaticPageServiceImpl;
 import com.sun.jmx.snmp.Timestamp;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.impl.HttpSolrServer;
+import org.apache.solr.common.SolrInputDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service("productService")
 public class ProductServiceImpl implements ProductService{
@@ -23,7 +31,14 @@ public class ProductServiceImpl implements ProductService{
     private BbsProductMapper bbsProductMapper;
     @Autowired
     private BbsIdMapper bbsIdMapper;
-
+    @Autowired
+    private HttpSolrServer solrServer;
+    @Autowired
+    private BbsSkuMapper bbsSkuMapper;
+    @Autowired
+    private BbsColorMapper bbsColorMapper;
+    @Autowired
+    private StaticPageServiceImpl staticPageService;
     @Override
     public PageInfo<BbsProduct> selectProducts(String name, Integer page, Integer isShow,Long brandId) {
         BbsProduct bbsProduct = new BbsProductWithBLOBs();
@@ -119,12 +134,54 @@ public class ProductServiceImpl implements ProductService{
     public void updateProducts1(Long[] ids) {
         //处理上架的service
        List<Long> longList = new ArrayList<>();
-       for(Long id:ids){
+       for(Long id:ids) {
            longList.add(id);
+           //静态化
+           List<BbsSku> skus = bbsSkuMapper.selectByPid(id);
+           BbsProductWithBLOBs product = bbsProductMapper.selectByPrimaryKey(id);
+           product.setPrice(bbsSkuMapper.selectMinPrice(id));
+           product.setImgUrls(product.getImgUrl().split(","));
+           Set<BbsColor> colors = new HashSet<BbsColor>();
+           for(BbsSku sku :skus){
+               BbsColor color = bbsColorMapper.selectByPrimaryKey(sku.getColorId());
+               colors.add(color);
+           }
+           Map<String,Object> root = new HashMap<>();
+           root.put("skus",skus);
+           root.put("colors",colors);
+           root.put("product",product);
+           staticPageService.productStaticPage(root,String.valueOf(id));
        }
-         bbsProductMapper.updateProduct1(longList);
-    }
+        bbsProductMapper.updateProduct1(longList);
+        //向solr中存数据。
+         addSolr(ids);
 
+    }
+     private void addSolr(Long[] ids){
+         for(Long id:ids) {
+             SolrInputDocument solrInputDocument = new SolrInputDocument();
+             solrInputDocument.addField("id",id);
+             BbsProductWithBLOBs bbsProductWithBLOBs = bbsProductMapper.selectByPrimaryKey(id);
+             solrInputDocument.addField("brandId",bbsProductWithBLOBs.getBrandId());
+             solrInputDocument.addField("name_ik",bbsProductWithBLOBs.getName());
+             solrInputDocument.addField("imgUrls",bbsProductWithBLOBs.getImgUrl().split(","));
+             solrInputDocument.addField("price",bbsSkuMapper.selectMinPrice(id));
+             try {
+                 solrServer.add(solrInputDocument);
+             } catch (SolrServerException e) {
+                 e.printStackTrace();
+             } catch (IOException e) {
+                 e.printStackTrace();
+             }
+             try {
+                 solrServer.commit();
+             } catch (SolrServerException e) {
+                 e.printStackTrace();
+             } catch (IOException e) {
+                 e.printStackTrace();
+             }
+         }
+     }
     @Override
     public void updateProducts0(Long[] ids) {
        //处理上架的service

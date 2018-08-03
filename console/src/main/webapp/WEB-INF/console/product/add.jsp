@@ -48,7 +48,7 @@ $(function(){
 					//指定上传文件参数名称
 					filePostName  : "pics",
 					//指定上传文件请求的url。
-					uploadJson : 'ImgLoads',
+					uploadJson : 'KindImgLoad',
 					//上传类型，分别为image、flash、media、file
 					dir : "image"//,
 // 					width : '1000px',

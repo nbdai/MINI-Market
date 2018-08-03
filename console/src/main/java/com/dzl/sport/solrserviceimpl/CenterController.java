@@ -1,4 +1,4 @@
-package com.dzl.sport.controller;
+package com.dzl.sport.solrserviceimpl;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

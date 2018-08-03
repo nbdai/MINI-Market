@@ -1,10 +1,10 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="productservice:war exploded">
-    <output-path>$PROJECT_DIR$/productservice/target/productservice</output-path>
+  <artifact type="exploded-war" name="portal:war exploded">
+    <output-path>$PROJECT_DIR$/portal/target/portal</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="productservice" />
+          <element id="module-output" name="portal" />
         </element>
         <element id="directory" name="lib">
           <element id="archive" name="interface-1.0-SNAPSHOT.jar">
@@ -16,12 +16,8 @@
           <element id="archive" name="commoms-1.0-SNAPSHOT.jar">
             <element id="module-output" name="commoms" />
           </element>
-          <element id="archive" name="dao-1.0-SNAPSHOT.jar">
-            <element id="module-output" name="dao" />
-          </element>
           <element id="library" level="project" name="Maven: com.github.pagehelper:pagehelper:4.0.3" />
           <element id="library" level="project" name="Maven: com.github.jsqlparser:jsqlparser:0.9.1" />
-          <element id="library" level="project" name="Maven: com.github.miemiedev:mybatis-paginator:1.2.5" />
           <element id="library" level="project" name="Maven: org.springframework:spring-context:4.1.3.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-aop:4.1.3.RELEASE" />
           <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
@@ -102,9 +98,9 @@
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/productservice/target/productservice/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/portal/target/portal/META-INF/MANIFEST.MF" />
       </element>
-      <element id="javaee-facet-resources" facet="productservice/web/Web" />
+      <element id="javaee-facet-resources" facet="portal/web/Web" />
     </root>
   </artifact>
 </component>
