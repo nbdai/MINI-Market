@@ -15,4 +15,9 @@ public class ColorServiceIml implements ColorService{
      public List<BbsColor> getColors(){
         return bbsColorMapper.selectAll();
     }
+
+    @Override
+    public BbsColor selectById(Long cid) {
+        return bbsColorMapper.selectByPrimaryKey(cid);
+    }
 }

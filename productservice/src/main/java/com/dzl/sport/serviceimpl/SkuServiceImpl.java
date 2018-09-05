@@ -32,4 +32,9 @@ public class SkuServiceImpl implements SkuService {
         bbsSku.setId(Long.parseLong(strings[5]));
         bbsSkuMapper.updateByPrimaryKeySelective(bbsSku);
     }
+
+    @Override
+    public BbsSku selectById(Long sid) {
+        return bbsSkuMapper.selectByPrimaryKey(sid);
+    }
 }

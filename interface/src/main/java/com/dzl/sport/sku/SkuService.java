@@ -7,4 +7,5 @@ import java.util.List;
 public interface SkuService {
    List<BbsSku> skuList(Long pid);
    void  updateSku(String[] strings);
+   BbsSku selectById(Long sid);
 }

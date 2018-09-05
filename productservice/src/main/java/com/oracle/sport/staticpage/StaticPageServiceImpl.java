@@ -36,6 +36,8 @@ public class StaticPageServiceImpl implements ServletContextAware {
             //输出  UTF-8
             out = new OutputStreamWriter(new FileOutputStream(f), "UTF-8");
             //处理
+
+            //替换死数据
             template.process(root, out);
 
         } catch (Exception e) {

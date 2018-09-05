@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ColorService {
     List<BbsColor> getColors();
+    BbsColor selectById(Long cid);
 }

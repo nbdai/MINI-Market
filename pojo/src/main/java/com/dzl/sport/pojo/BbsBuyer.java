@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class BbsBuyer implements Serializable{
     private Long id;
-
+     private String returnUrl;
     private String username;
 
     private String password;
@@ -27,6 +27,14 @@ public class BbsBuyer implements Serializable{
     private String addr;
 
     private Boolean isDel;
+
+    public String getReturnUrl() {
+        return returnUrl;
+    }
+
+    public void setReturnUrl(String returnUrl) {
+        this.returnUrl = returnUrl;
+    }
 
     public Long getId() {
         return id;

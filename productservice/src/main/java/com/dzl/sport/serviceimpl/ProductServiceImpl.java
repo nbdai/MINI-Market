@@ -150,6 +150,7 @@ public class ProductServiceImpl implements ProductService{
            root.put("skus",skus);
            root.put("colors",colors);
            root.put("product",product);
+           //读 替换 写。
            staticPageService.productStaticPage(root,String.valueOf(id));
        }
         bbsProductMapper.updateProduct1(longList);

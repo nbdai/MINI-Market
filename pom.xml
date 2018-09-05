@@ -17,6 +17,9 @@
         <module>console</module>
         <module>portal</module>
         <module>solrservice</module>
+        <module>cmsservice</module>
+        <module>login</module>
+        <module>loginservice</module>
     </modules>
     <properties>
         <java-version>1.8</java-version>

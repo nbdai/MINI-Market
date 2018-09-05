@@ -7,7 +7,7 @@ import java.sql.Date;
 public class BbsSku implements Serializable{
     private Long id;
     private Long productId;
-
+    private BbsColor color;
     private Long colorId;
 
     private String size;
@@ -23,6 +23,14 @@ public class BbsSku implements Serializable{
     private Integer upperLimit;
 
     private Date createTime;
+
+    public BbsColor getColor() {
+        return color;
+    }
+
+    public void setColor(BbsColor color) {
+        this.color = color;
+    }
 
     public Long getId() {
         return id;
